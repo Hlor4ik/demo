@@ -1,4 +1,5 @@
 package com.example.demo.Models;
 
-public class Manager {
+public record Manager(int managerId,int sellerId,String firstname,String lastname,String email,boolean isMan) {
+
 }
