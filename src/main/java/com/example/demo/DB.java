@@ -43,4 +43,37 @@ public class DB {
         managers.add(manager);
         return manager;
     }
+
+    public static Manager deleteManager(int managerId) {
+        Manager managerToDelete = managers.stream()
+                .filter(m -> m.managerId() == managerId)
+                .findAny()
+                .orElseThrow(() -> new IllegalArgumentException("Manager not found"));
+        managers.remove(managerToDelete);
+        return managerToDelete;
+    }
+    public static void updateManager(Manager manager,int managerId){
+        var exist=getManager(managerId);
+        managers.remove(exist);
+        managers.add(manager);
+    }
+    public static Seller addSeller(Seller seller){
+        // Добавляем нового менеджера в список
+        sellers.add(seller);
+        return seller;
+    }
+
+    public static Seller deleteSeller(int sellerId) {
+        Seller sellerToDelete = sellers.stream()
+                .filter(m -> m.sellerId() == sellerId)
+                .findAny()
+                .orElseThrow(() -> new IllegalArgumentException("Seller not found"));
+        sellers.remove(sellerToDelete);
+        return sellerToDelete;
+    }
+    public static void updateSeller(Seller seller,int sellerId){
+        var exist=getSeller(sellerId);
+        sellers.remove(exist);
+        sellers.add(seller);
+    }
 }

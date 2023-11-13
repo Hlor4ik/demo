@@ -2,23 +2,35 @@ package com.example.demo.Controllers;
 
 import com.example.demo.DB;
 import com.example.demo.Models.Seller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
 @RestController
-@RequestMapping("/sellers")
 public class SellerController {
     @GetMapping
+    @RequestMapping("/sellers")
     public ArrayList<Seller> getSellers() {
         return DB.getSellers();
     }
 
-    @GetMapping("/{sellerId}")
+    @GetMapping("/sellers/{sellerId}")
     public Seller getSeller(@PathVariable int sellerId) {
         return DB.getSeller(sellerId);
+    }
+    @PostMapping("/sellers")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Seller addSeller(@RequestBody Seller seller) {
+        return DB.addSeller(seller);
+    }
+    @DeleteMapping("/sellers/{sellerId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public Seller deleteSeller(@PathVariable int sellerId) {
+        return DB.deleteSeller(sellerId);
+    }
+    @PutMapping("/sellers/{sellerId}")
+    public static void updateSeller(@PathVariable int sellerId, @RequestBody Seller seller) {
+        DB.updateSeller(seller,sellerId);
     }
 }

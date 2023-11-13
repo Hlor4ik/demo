@@ -19,9 +19,21 @@ public class ManagerController {
     public Manager getManager(@PathVariable int managerId) {
         return DB.getManager(managerId);
     }
+
     @PostMapping("/managers")
     @ResponseStatus(HttpStatus.CREATED)
     public Manager addManager(@RequestBody Manager manager) {
         return DB.addManager(manager);
     }
+    @DeleteMapping("/managers/{managerId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public Manager deleteManager(@PathVariable int managerId) {
+       return DB.deleteManager(managerId);
+    }
+    @PutMapping("/managers/{managerId}")
+    public static void updateManager(@PathVariable int managerId, @RequestBody Manager manager) {
+         DB.updateManager(manager,managerId);
+    }
+
+
 }
