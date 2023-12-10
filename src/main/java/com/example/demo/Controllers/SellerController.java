@@ -1,36 +1,39 @@
 package com.example.demo.Controllers;
 
-import com.example.demo.DB;
 import com.example.demo.Models.Seller;
+import com.example.demo.Repository.SellerRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@RequestMapping("/sellers")
 @RestController
 public class SellerController {
+    private final SellerRepository sellerRepository;
+    public SellerController(SellerRepository sellerRepository) {
+        this.sellerRepository = sellerRepository;
+    }
     @GetMapping
-    @RequestMapping("/sellers")
     public List<Seller> getSellers() {
-        return DB.getSellers();
+        return sellerRepository.readAll();
     }
 
-    @GetMapping("/sellers/{sellerId}")
+    @GetMapping("/{sellerId}")
     public Seller getSeller(@PathVariable int sellerId) {
-        return DB.getSeller(sellerId);
+        return sellerRepository.read(sellerId);
     }
-    @PostMapping("/sellers")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Seller addSeller(@RequestBody Seller seller) {
-        return DB.addSeller(seller);
+    public void create(@RequestBody Seller seller) {
+         sellerRepository.create(seller);
     }
-    @DeleteMapping("/sellers/{sellerId}")
+    @DeleteMapping("/{sellerId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Seller deleteSeller(@PathVariable int sellerId) {
-        return DB.deleteSeller(sellerId);
+    public void deleteSeller(@PathVariable("sellerId") int sellerId) {
+        sellerRepository.delete(sellerId);
     }
-    @PutMapping("/sellers/{sellerId}")
-    public static void updateSeller(@PathVariable int sellerId, @RequestBody Seller seller) {
-        DB.updateSeller(seller,sellerId);
+    @PutMapping("/{sellerId}")
+    public void updateSeller(@PathVariable("sellerId") int sellerId, @RequestBody Seller seller) {
+        sellerRepository.update(seller,sellerId);
     }
 }
