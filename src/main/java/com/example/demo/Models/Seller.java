@@ -1,4 +1,4 @@
 package com.example.demo.Models;
 
-public record Seller(int sellerId,int managerId,String name,String surname,String phone,Integer salary) {
+public record Seller(Integer sellerId, Integer managerId, String firstname, String lastname, String phone, Integer salary) {
 }

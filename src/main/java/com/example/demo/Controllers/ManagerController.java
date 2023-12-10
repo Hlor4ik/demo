@@ -6,12 +6,12 @@ import jakarta.annotation.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class ManagerController {
     @GetMapping("/managers")
-    public ArrayList<Manager> getManagers() {
+    public List<Manager> getManagers() {
         return DB.getManagers();
     }
 

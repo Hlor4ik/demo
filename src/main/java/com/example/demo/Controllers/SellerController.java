@@ -5,13 +5,13 @@ import com.example.demo.Models.Seller;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class SellerController {
     @GetMapping
     @RequestMapping("/sellers")
-    public ArrayList<Seller> getSellers() {
+    public List<Seller> getSellers() {
         return DB.getSellers();
     }
 
